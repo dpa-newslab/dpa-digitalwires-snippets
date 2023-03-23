@@ -1,0 +1,19 @@
+{
+    "name": "table-of-contents",
+    "version": "1.0.0",
+    "description": "Snippert for creation of a table-of-contents with deeplinks for articles",
+    "author": "dpa-IT Services GmbH",
+    "license": "Apache-2.0",
+    "licenses": [
+      {
+        "type": "Apache-2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      }
+    ],
+    "scripts": {
+      "create-toc": "node table_of_contents.js"
+    },
+    "dependencies": {
+        "jsdom": "^21.1.1"
+    }
+}
