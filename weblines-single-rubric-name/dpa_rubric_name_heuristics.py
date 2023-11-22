@@ -38,13 +38,13 @@ infoline_preference = {
     ))
 }
 
-# regionlinegeo stories are somtimes assigned more than one rubric_name if the
+# regiolinegeo stories are sometimes assigned to more than one rubric_name if the
 # story concerns more than one dpa region. If there are several rubric_names
-# for regionlinegeo, the first that appears on the list below is selected the
+# for regiolinegeo, the first that appears on the list below is selected the
 # list below would be one that prefers south german regions over north german
 # regions
 
-regionline_preference = {
+regioline_preference = {
     f'weblines.regiolinegeo.{key}': value for value, key in enumerate((
         'badenwuerttemberg',
         'bayern',
@@ -70,7 +70,6 @@ starline_preference = {
         'kino',
         'kunst',
         'leute',
-        'leute.geburtstage',
         'musik',
         'buch',
         'leben',
@@ -133,14 +132,14 @@ def consolidate_topn(names: List[str]) -> str:
 # True
 
 
-def boildown_regionline(names: List[str]) -> str:
+def boildown_regioline(names: List[str]) -> str:
     """
-    more than one regionlinegeo ? select preferred
+    more than one regiolinegeo ? select preferred
     """
     if any(('regiolinegeo' in name for name in names)):
         return sorted(
             names,
-            key=lambda name: regionline_preference.get(name, 100))[0]
+            key=lambda name: regioline_preference.get(name, 100))[0]
     return UNDECIDED
 
 
@@ -230,7 +229,7 @@ def rubric_name(names: List[str], drop_starline: bool = True) -> str:
     # you may reorder this if you find that infoline should be considered
     # before regioline for example
     for boildown_method in (
-            boildown_regionline,
+            boildown_regioline,
             boildown_starline if not drop_starline else lambda a: UNDECIDED or a,
             boildown_infoline,
             boildown_sportsline,
@@ -242,4 +241,3 @@ def rubric_name(names: List[str], drop_starline: bool = True) -> str:
             return result
     # should never happen
     return UNDECIDED
-
